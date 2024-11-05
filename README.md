@@ -29,7 +29,7 @@
 ### 2024.11.05 (화)
 - [x] React Router로 홈, 커밍순, 현재상영작 페이지 라우터와 컴포넌트 만들기
 - [x] 헤더 만들어서 페이지 이동하기
-- [ ] Styled Components와 Framer Motion 사용해 헤더 스타일링, 애니메이션
+- [x] Styled Components와 Framer Motion 사용해 헤더 스타일링, 애니메이션
 ### 2024.11.06 (수)
 - [ ] React Query로 영화 리스트 화면에 출력
 - [ ] Styled Components와 Framer Motion 사용해 목록 페이지 스타일링, 애니메이션
