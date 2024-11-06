@@ -1,3 +1,30 @@
+import {useQuery} from "@tanstack/react-query";
+import {getPopular, IMovieResponse} from "../api.ts";
+import Loading from "../components/Loading.tsx";
+import MovieList from "../components/MovieList.tsx";
+import Modal from "../components/Modal.tsx";
+import {useMatch} from "react-router-dom";
+
 export default function Home() {
-  return <h1>Home</h1>
+  const detailMatch = useMatch("/:movieId");
+  // console.log(detailMatch);
+
+  const { data, isPending } = useQuery<IMovieResponse>({
+    queryKey: ["popularMovies"],
+    queryFn: getPopular,
+  });
+
+  return (
+    <div>
+      {
+        isPending ?
+        <Loading /> :
+        (data && <MovieList {...data} />)
+      }
+      {
+        detailMatch && <Modal />
+      }
+
+    </div>
+  );
 }

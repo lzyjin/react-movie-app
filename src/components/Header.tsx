@@ -3,7 +3,12 @@ import styled from "styled-components";
 import {motion} from "framer-motion";
 
 const HeaderBox = styled.header`
-    padding: 3rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 3rem 0;
+  //background-color: ${props => props.theme.bgColor};
 `;
 
 const Nav = styled.nav`
