@@ -13,7 +13,7 @@ const Img = styled(motion.div)`
   aspect-ratio: 2 / 3;
   overflow: hidden;
   transform-origin: bottom center;
-  position: relative;
+  //position: relative;
   
   img {
     width: 100%;
@@ -28,28 +28,28 @@ const Title = styled.p`
   margin-top: 0.5em;
 `;
 
-const Overview = styled(motion.div)`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  font-size: 1rem;
-  padding: 1em;
-    
-    p {
-      line-height: 1.4;
-      color: #fff;
-      // color: ${props => props.theme.textColor};
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      -webkit-box-orient: vertical;
-    }
-`;
+// const Overview = styled(motion.div)`
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.6);
+//   opacity: 0;
+//   font-size: 1rem;
+//   font-family: "Cormorant Garamond", serif;
+//   padding: 1em;
+//
+//     p {
+//       line-height: 1.4;
+//       color: #fff;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       display: -webkit-box;
+//       -webkit-line-clamp: 7;
+//       -webkit-box-orient: vertical;
+//     }
+// `;
 
 const cardVariants = {
   hidden: {
@@ -69,13 +69,15 @@ export default function MovieCard(movie: IMovie) {
   return (
     <Card
       key={movie.id}
-      variants={cardVariants}>
+      variants={cardVariants}
+      layoutId={String(movie.id)}
+    >
       <Link to={`/${movie.id+""}`}>
         <Img whileHover={{ scale: 1.1 }} transition={{ type: "tween" }}>
           <img src={makeImagePath(movie.poster_path)} alt={movie.title}/>
-          <Overview whileHover={{ opacity: 1 }}>
-            <p>{movie.overview}</p>
-          </Overview>
+          {/*<Overview whileHover={{ opacity: 1 }}>*/}
+          {/*  <p>{movie.overview}</p>*/}
+          {/*</Overview>*/}
         </Img>
         <Title>{movie.title}</Title>
       </Link>

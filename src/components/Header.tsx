@@ -7,8 +7,9 @@ const HeaderBox = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  padding: 3rem 0;
-  //background-color: ${props => props.theme.bgColor};
+  padding: 3rem 0 2rem;
+  background-color: ${props => props.theme.bgColor};
+  z-index: 10;
 `;
 
 const Nav = styled.nav`
@@ -22,8 +23,8 @@ const NavList = styled.ul`
     gap: 2rem;
 `;
 
-const NavItem = styled.li<{ match: boolean }>`
-    opacity: ${props => props.match ? 1 : 0.7};
+const NavItem = styled.li<{ match: string }>`
+    opacity: ${props => props.match === "matched" ? 1 : 0.7};
     transition: color .2s ease-in-out;
 
     &:hover {
@@ -57,13 +58,13 @@ export default function Header() {
     <HeaderBox>
       <Nav>
         <NavList>
-          <NavItem match={ !!homeMatch }>
+          <NavItem match={ homeMatch ? "matched" : "" }>
             <Link to="/">POPULAR { homeMatch && <Dot layoutId="dot" /> }</Link>
           </NavItem>
-          <NavItem match={ !!comingSoomMatch }>
+          <NavItem match={ comingSoomMatch ? "matched" : "" }>
             <Link to="/coming-soon">COMING SOON { comingSoomMatch && <Dot layoutId="dot" /> }</Link>
           </NavItem>
-          <NavItem match={ !!nowPlayingMatch }>
+          <NavItem match={ nowPlayingMatch ? "matched" : "" }>
             <Link to="/now-playing">NOW PLAYING { nowPlayingMatch && <Dot layoutId="dot" /> }</Link>
           </NavItem>
         </NavList>

@@ -16,7 +16,7 @@
 - [x] React Query로 영화 리스트 화면에 출력
 - [x] Styled Components와 Framer Motion 사용해 목록 페이지 스타일링, 애니메이션
 - [x] 모달 만들고 상세 정보 출력
-- [ ] Styled Components와 Framer Motion 사용해 모달 스타일링, 애니메이션
+- [x] Styled Components와 Framer Motion 사용해 모달 스타일링, 애니메이션
 - [ ] 반응형 css로 만들기
 - [ ] 비지니스 로직 분리, 컴포넌트 분리 깔끔하게
 
@@ -37,7 +37,7 @@
 - [x] Styled Components와 Framer Motion 사용해 목록 페이지 스타일링, 애니메이션
 - [x] 모달 만들고 상세 정보 출력
 ### 2024.11.07 (목)
-- [ ] Styled Components와 Framer Motion 사용해 모달 스타일링, 애니메이션
+- [x] Styled Components와 Framer Motion 사용해 모달 스타일링, 애니메이션
 - [ ] 반응형 css로 만들기
 - [ ] 비지니스 로직 분리, 컴포넌트 분리 깔끔하게
 - [ ] 추가기능 - Styled Components의 Theme을 활용한 라이트모드/다크모드

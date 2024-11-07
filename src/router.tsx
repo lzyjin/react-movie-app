@@ -12,18 +12,32 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <Home />,
-      },
-      {
-        path: ':movieId',
-        element: <Home />,
+        children: [
+          {
+            path: ':movieId',
+            element: <Home />,
+          },
+        ]
       },
       {
         path: 'coming-soon',
         element: <ComingSoon />,
+        children: [
+          {
+            path: ':movieId',
+            element: <ComingSoon />,
+          },
+        ]
       },
       {
         path: 'now-playing',
         element: <NowPlaying />,
+        children: [
+          {
+            path: ':movieId',
+            element: <NowPlaying />,
+          },
+        ]
       },
     ],
   },
