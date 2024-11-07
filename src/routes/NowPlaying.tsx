@@ -6,9 +6,10 @@ import {useEffect} from "react";
 import {scrollToTop} from "../utils.ts";
 import Modal from "../components/Modal.tsx";
 import {useMatch} from "react-router-dom";
+import {AnimatePresence} from "framer-motion";
 
 export default function NowPlaying() {
-  const detailMatch = useMatch("/:movieId");
+  const detailMatch = useMatch("/now-playing/:movieId");
 
   const { data, isPending } = useQuery<IMovieResponse>({
     queryKey: ["nowPlayingMovies"],
@@ -23,12 +24,15 @@ export default function NowPlaying() {
     <div>
       {
         isPending ?
-        <Loading /> :
-        // (data && <MovieList {...data} category="nowPlaying" />)
-        (data && <MovieList {...data} />)
-      }
-      {
-          detailMatch && <Modal />
+          <Loading/> :
+          <>
+            {data && <MovieList data={data}/>}
+            <AnimatePresence>
+              {
+                detailMatch ? <Modal/> : null
+              }
+            </AnimatePresence>
+          </>
       }
     </div>
   );

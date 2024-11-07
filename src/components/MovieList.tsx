@@ -3,10 +3,9 @@ import {IMovieResponse} from "../api.ts";
 import MovieCard from "./MovieCard.tsx";
 import {motion} from "framer-motion";
 
-// interface IMovieList {
-//   data: IMovieResponse;
-//   category: string;
-// }
+interface IMovieList {
+  data: IMovieResponse;
+}
 
 const List = styled(motion.ul)`
   display: grid;
@@ -44,21 +43,18 @@ const listVariants = {
   },
 };
 
-// export default function MovieList({data, category}: IMovieList) {
-export default function MovieList(data: IMovieResponse) {
+export default function MovieList({data}: IMovieList) {
+
   return (
-    <>
-      <List
-        variants={listVariants}
-        initial="hidden"
-        animate="visible">
-        {
-          data?.results.map(movie => (
-            <MovieCard key={movie.id} {...movie} />
-            // <MovieCard key={movie.id} {...movie} category={category} />
-          ))
-        }
-      </List>
-    </>
+    <List
+      variants={listVariants}
+      initial="hidden"
+      animate="visible">
+      {
+        data?.results.map(movie => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))
+      }
+    </List>
   );
 }

@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import {IMovie, makeImagePath} from "../api.ts";
 import {motion} from "framer-motion";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+
+interface IMovieCardProps {
+  movie: IMovie;
+}
 
 const Card = styled(motion.li)`
-  
+    cursor: pointer;
 `;
 
 const Img = styled(motion.div)`
@@ -13,7 +17,6 @@ const Img = styled(motion.div)`
   aspect-ratio: 2 / 3;
   overflow: hidden;
   transform-origin: bottom center;
-  //position: relative;
   
   img {
     width: 100%;
@@ -65,20 +68,30 @@ const cardVariants = {
   },
 };
 
-export default function MovieCard(movie: IMovie) {
+export default function MovieCard({movie}: IMovieCardProps) {
+  const location = useLocation();
+  let detailUrl;
+
+  if (location.pathname === "/") {
+    detailUrl = location.pathname + movie.id;
+  } else {
+    detailUrl = location.pathname + "/" + movie.id;
+  }
+
   return (
-    <Card
-      key={movie.id}
-      variants={cardVariants}
-      layoutId={String(movie.id)}
-    >
-      <Link to={`/${movie.id+""}`}>
-        <Img whileHover={{ scale: 1.1 }} transition={{ type: "tween" }}>
-          <img src={makeImagePath(movie.poster_path)} alt={movie.title}/>
-          {/*<Overview whileHover={{ opacity: 1 }}>*/}
-          {/*  <p>{movie.overview}</p>*/}
-          {/*</Overview>*/}
-        </Img>
+    <Card variants={cardVariants}>
+      <Link to={detailUrl} state={{...movie}}>
+        <motion.div layoutId={String(movie.id)}>
+          <Img
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "tween" }}
+          >
+            <img src={makeImagePath(movie.poster_path)} alt={movie.title}/>
+            {/*<Overview whileHover={{ opacity: 1 }}>*/}
+            {/*  <p>{movie.overview}</p>*/}
+            {/*</Overview>*/}
+          </Img>
+        </motion.div>
         <Title>{movie.title}</Title>
       </Link>
     </Card>

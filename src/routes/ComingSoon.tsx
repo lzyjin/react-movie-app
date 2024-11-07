@@ -6,9 +6,10 @@ import {useEffect} from "react";
 import {scrollToTop} from "../utils.ts";
 import Modal from "../components/Modal.tsx";
 import {useMatch} from "react-router-dom";
+import {AnimatePresence} from "framer-motion";
 
 export default function ComingSoon() {
-  const detailMatch = useMatch("/:movieId");
+  const detailMatch = useMatch("/coming-soon/:movieId");
 
   const { data, isPending } = useQuery<IMovieResponse>({
     queryKey: ["comingSoonMovies"],
@@ -23,12 +24,15 @@ export default function ComingSoon() {
     <div>
       {
         isPending ?
-        <Loading /> :
-        (data && <MovieList {...data} />)
-        // (data && <MovieList {...data} category="commingSoom" />)
-      }
-      {
-          detailMatch && <Modal />
+          <Loading/> :
+          <>
+            {data && <MovieList data={data}/>}
+            <AnimatePresence>
+              {
+                detailMatch ? <Modal/> : null
+              }
+            </AnimatePresence>
+          </>
       }
     </div>
   );
