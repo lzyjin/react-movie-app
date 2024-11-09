@@ -1,9 +1,10 @@
 import {motion} from "framer-motion";
 import styled from "styled-components";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {getMovie, IMovieDetail, makeBgPath} from "../api.ts";
-// import Loading from "./Loading.tsx";
+import {getMovie, makeBgPath} from "../api.ts";
+import Loading from "./Loading.tsx";
+import {IModalProps, IMovieDetail} from "../types.ts";
 
 const Dim = styled(motion.div)`
   position: fixed;
@@ -13,13 +14,14 @@ const Dim = styled(motion.div)`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
+  z-index: 20;
 `;
 
 const ModalBox = styled(motion.div)`
   background-color: ${props => props.theme.bgColor};
   width: 80vw;
   max-width: 800px;
-  height: auto;
+  height: max-content;
   max-height: 80vh;
   overflow-y: auto;
   position: fixed;
@@ -27,7 +29,7 @@ const ModalBox = styled(motion.div)`
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 10;
+  z-index: 30;
   margin: auto;
 `;
 
@@ -58,7 +60,7 @@ const Img = styled.div`
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 101%;
     background-image: linear-gradient(transparent, ${props => props.theme.bgColor});
     z-index: 1;
   }
@@ -80,6 +82,12 @@ const Text = styled.div`
 const Title = styled.p`
   transform: translateY(-0.5em);
   font-size: 2.5rem;
+`;
+
+const OriginalTitle = styled.p`
+  transform: translateY(-1.3em);
+  font-size: 0.85rem;
+  opacity: 0.7;
 `;
 
 const Genres = styled.ul`
@@ -108,14 +116,12 @@ const Infos = styled.ul`
 const Info = styled.li`
 `;
 
-export default function Modal() {
+export default function Modal({ movieId }: IModalProps) {
   const navigate = useNavigate();
-  const params= useParams();
-  const movieId = params.movieId;
   const location = useLocation();
   const state = location.state;
 
-  const {data} = useQuery<IMovieDetail>({
+  const {data, isPending} = useQuery<IMovieDetail>({
     queryKey: [movieId],
     queryFn: () => getMovie(Number(movieId))
   });
@@ -141,8 +147,8 @@ export default function Modal() {
         exit={{ opacity: 0 }} />
       <ModalBox layoutId={movieId} key={movieId}>
         {
-          // isPending ?
-          // <Loading /> :
+          isPending ?
+          <Loading /> :
           data &&
           <>
             <CloseBtn onClick={closeModal}>
@@ -163,15 +169,20 @@ export default function Modal() {
                 }
               </Genres>
               <Title>{state?.title || data?.title}</Title>
+              {
+                data?.title !== data?.original_title &&
+                <OriginalTitle>{data?.original_title}</OriginalTitle>
+              }
               <Infos>
                 <Info>{state?.release_date || data?.release_date}</Info>
+                <Info>{data?.origin_country[0]}</Info>
                 <Info>{data?.runtime} minutes</Info>
                 <Info>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: "1em", marginRight: "0.5em", transform: "translateY(0.15em)" }}>
                     <path
                       d="M12.0006 18.26L4.94715 22.2082L6.52248 14.2799L0.587891 8.7918L8.61493 7.84006L12.0006 0.5L15.3862 7.84006L23.4132 8.7918L17.4787 14.2799L19.054 22.2082L12.0006 18.26Z"></path>
                   </svg>
-                  {Math.floor(state?.vote_average || (data ? data?.vote_average : 0))} / 10
+                  { (state?.vote_average || (data ? data?.vote_average : 0)).toFixed(1) } / 10
                 </Info>
                 {
                   data?.homepage && (

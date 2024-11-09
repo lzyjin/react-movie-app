@@ -1,6 +1,7 @@
 import {Link, useMatch} from "react-router-dom";
 import styled from "styled-components";
 import {motion} from "framer-motion";
+import {IHeaderProps} from "../types.ts";
 
 const HeaderBox = styled.header`
   position: fixed;
@@ -49,7 +50,18 @@ const Dot = styled(motion.div)`
     top: -1em;
 `;
 
-export default function Header() {
+const ThemeControl = styled(motion.button)`
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: fixed;
+    left: 2rem;
+    top: 2rem;
+    z-index: 30;
+`;
+
+export default function Header({ isDark, toggleThemeFn }: IHeaderProps) {
   const homeMatch = useMatch("/");
   const comingSoomMatch = useMatch("/coming-soon");
   const nowPlayingMatch = useMatch("/now-playing");
@@ -69,6 +81,10 @@ export default function Header() {
           </NavItem>
         </NavList>
       </Nav>
+      <ThemeControl
+        onClick={toggleThemeFn}
+        whileHover={{ scale: 1.3 }}
+      >{ isDark ? "🌞" : "🌙" }</ThemeControl>
     </HeaderBox>
   );
 }

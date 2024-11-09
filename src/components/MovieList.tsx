@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import {IMovieResponse} from "../api.ts";
 import MovieCard from "./MovieCard.tsx";
 import {motion} from "framer-motion";
-
-interface IMovieList {
-  data: IMovieResponse;
-}
+import {IMovieList} from "../types.ts";
 
 const List = styled(motion.ul)`
   display: grid;

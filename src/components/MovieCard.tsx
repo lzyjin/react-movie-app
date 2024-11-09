@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import {IMovie, makeImagePath} from "../api.ts";
+import {makeImagePath} from "../api.ts";
 import {motion} from "framer-motion";
 import {Link, useLocation} from "react-router-dom";
-
-interface IMovieCardProps {
-  movie: IMovie;
-}
+import {IMovieCardProps} from "../types.ts";
 
 const Card = styled(motion.li)`
     cursor: pointer;
@@ -30,29 +27,6 @@ const Title = styled.p`
   font-size: 1.125rem;
   margin-top: 0.5em;
 `;
-
-// const Overview = styled(motion.div)`
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0, 0, 0, 0.6);
-//   opacity: 0;
-//   font-size: 1rem;
-//   font-family: "Cormorant Garamond", serif;
-//   padding: 1em;
-//
-//     p {
-//       line-height: 1.4;
-//       color: #fff;
-//       overflow: hidden;
-//       text-overflow: ellipsis;
-//       display: -webkit-box;
-//       -webkit-line-clamp: 7;
-//       -webkit-box-orient: vertical;
-//     }
-// `;
 
 const cardVariants = {
   hidden: {
@@ -87,9 +61,6 @@ export default function MovieCard({movie}: IMovieCardProps) {
             transition={{ type: "tween" }}
           >
             <img src={makeImagePath(movie.poster_path)} alt={movie.title}/>
-            {/*<Overview whileHover={{ opacity: 1 }}>*/}
-            {/*  <p>{movie.overview}</p>*/}
-            {/*</Overview>*/}
           </Img>
         </motion.div>
         <Title>{movie.title}</Title>
