@@ -1,3 +1,9 @@
+// export enum PageType {
+//   "popular" = "popular",
+//   "coming_soon" = "coming soon",
+//   "now_playing" = "now playing"
+// }
+
 export interface IMovie {
   adult: boolean;
   backdrop_path: string;

@@ -40,7 +40,6 @@ const listVariants = {
 };
 
 export default function MovieList({data}: IMovieList) {
-
   return (
     <List
       variants={listVariants}

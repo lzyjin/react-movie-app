@@ -44,6 +44,7 @@ const cardVariants = {
 
 export default function MovieCard({movie}: IMovieCardProps) {
   const location = useLocation();
+  // console.log(location)
   let detailUrl;
 
   if (location.pathname === "/") {

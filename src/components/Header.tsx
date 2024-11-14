@@ -35,6 +35,10 @@ const NavItem = styled.li<{ match: string }>`
     a {
         position: relative;
     }
+
+    @media screen and (max-width: 500px) {
+        font-size: 0.9rem;
+    }
 `;
 
 const Dot = styled(motion.div)`
@@ -59,6 +63,12 @@ const ThemeControl = styled(motion.button)`
     left: 2rem;
     top: 2rem;
     z-index: 30;
+
+    @media screen and (max-width: 500px) {
+        left: 1rem;
+        top: 1rem;
+        font-size: 1.3rem;
+    }
 `;
 
 export default function Header({ isDark, toggleThemeFn }: IHeaderProps) {
